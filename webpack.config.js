@@ -4,20 +4,31 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = (env) => {
     return {
         mode: env.production ? 'production' : 'development',
-        entry: './src/index.js',
+        entry: './src/index.ts',
+        module: {
+            rules: [
+                {
+                    test: /\.tsx?$/,
+                    use: 'ts-loader',
+                    exclude: /node_modules/,
+                },
+            ],
+        },
+        resolve: {
+            extensions: ['.ts', '.js'],
+        },
         plugins: [
             new HtmlWebpackPlugin({
-                title: 'First Test'
+                template: './src/index.html',
+                title: 'Editor',
             })
         ],
-        output: {
-            filename: '[name].js',
-            path: path.resolve(__dirname, env.production == true ? 'bundle' : 'dist'),
-        },
         devServer: {
-            contentBase: path.join(__dirname, 'bundle'),
-            compress: true,
-            port: 5500,
-        }
+            contentBase: './bundle',
+        },
+        output: {
+            filename: 'index.js',
+            path: path.resolve(__dirname, env.production == true ? 'dist' : 'bundle'),
+        },
     }
 }
