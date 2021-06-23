@@ -2,6 +2,7 @@ import converter from "./Converter";
 import resolver from "./Resolver";
 import bold from './Listener/Bold';
 import createTool from './ToolCreator'
+import TextBlock from './Listener/TextBlock'
 
 interface toolsdetails { name: string; listener: Function; element: Function }
 class Editor {
@@ -13,6 +14,11 @@ class Editor {
         "name": 'bold',
         "listener": bold,
         "element": () => createTool('bold'),
+    },
+    {
+        "name": 'text-block',
+        "listener": TextBlock,
+        "element": () => createTool('text-block'),
     }]
     constructor(node: HTMLElement, optionType: 'icon' | 'box' = 'icon', newTools: Array<toolsdetails> | null = null) {
         this._node = node
@@ -38,7 +44,7 @@ class Editor {
             wrapper.classList.add('tool')
             wrapper.appendChild(tool_element)
             this._toolBox.appendChild(wrapper)
-            wrapper.addEventListener('click', () => listener(this._contentBox))
+            wrapper.addEventListener('click', () => listener())
         })
     }
     covertToJson = () => converter(this._node)
