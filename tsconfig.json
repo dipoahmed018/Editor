@@ -7,5 +7,7 @@
         "moduleResolution": "node",
         "target": "es5",
         "removeComments": true,
-    }
+    },
+    "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"],
+    "include": ["src", "imageconfig.d.ts"]
 }

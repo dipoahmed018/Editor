@@ -1,5 +1,4 @@
+import Editor from "./Modules/Editor";
+const edit_box : HTMLElement = document.getElementById('editor-box')
 
-const edit_box : NodeList = document.querySelectorAll('edit-box')
-
-console.log(edit_box)
-
+const editor = new Editor(edit_box, 'box')

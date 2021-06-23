@@ -12,6 +12,17 @@ module.exports = (env) => {
                     use: 'ts-loader',
                     exclude: /node_modules/,
                 },
+                {
+                    test: /\.(png|svg|jpg|gif|jpeg)?$/i,
+                    loader: 'file-loader',
+                    options : {
+                        name : '[name].[ext]',
+                    }
+                },
+                {
+                    test: /\.css$/i,
+                    use : ['style-loader','css-loader'],
+                }
             ],
         },
         resolve: {

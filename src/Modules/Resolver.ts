@@ -1,3 +1,3 @@
-function Resover(block:object) {
+export default function Resolver(block:object) {
     console.log(block)
 }
