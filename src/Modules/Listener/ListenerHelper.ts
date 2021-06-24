@@ -44,3 +44,10 @@ export function styleExists(node: HTMLElement, ClassList : Array<String>) : (Arr
     })
     return available.length < 1 ? null : available;
 }
+
+export function getBlock(node:HTMLElement) : HTMLElement | undefined {
+    if (node instanceof HTMLElement && !node.classList.contains('editor-preview-box') && node.parentElement) {
+        return node.getAttribute('data-block-id') ? node : getBlock(node.parentElement)
+    }
+    return undefined
+}

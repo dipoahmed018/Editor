@@ -1,11 +1,12 @@
 .editor-preview-box {
   display: flex;
+  flex-wrap: wrap;
   background-color: rgb(222, 219, 219);
+  position: relative;
 }
 
 .bold-text {
   font-weight: bold;
-  color: red;
 }
 //font-style
 .normal-text {
@@ -13,4 +14,20 @@
 }
 .italic-text {
   font-style: italic;
+}
+.text-block {
+    background-color: yellowgreen;
+    flex-basis: 50%;
+    justify-self: center;
+}
+.align-center {
+    flex-basis: 100%;
+    display: grid;
+    grid-template-rows: auto;
+    .align-center:first-child {
+        color: red !important;
+        justify-self: center;
+        max-width: 80%;
+        word-break: break-all;
+    }
 }

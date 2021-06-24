@@ -1,8 +1,9 @@
-import converter from "./Converter";
 import resolver from "./Resolver";
 import bold from './Listener/Bold';
 import createTool from './ToolCreator'
 import TextBlock from './Listener/TextBlock'
+import alignCenter from './Listener/AlignCenter'
+import addLink from './Listener/AddLink'
 
 interface toolsdetails { name: string; listener: Function; element: Function }
 class Editor {
@@ -18,7 +19,19 @@ class Editor {
         "name": 'text-block',
         "listener": TextBlock,
         "element": () => createTool('text-block'),
-    }]
+    },
+    {
+        "name": "align-center",
+        "listener": alignCenter,
+        'element': () => createTool('align-center'),
+    },
+    {
+        "name": "link",
+        "listener": addLink,
+        "element": () => createTool('link'),
+    }
+
+]
     
     constructor(node: HTMLElement, optionType: 'icon' | 'box' = 'icon', newTools: Array<toolsdetails> | null = null) {
         this.node = node
