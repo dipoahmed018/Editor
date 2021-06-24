@@ -6,12 +6,11 @@ import TextBlock from './Listener/TextBlock'
 
 interface toolsdetails { name: string; listener: Function; element: Function }
 class Editor {
-    _node: HTMLElement
-    _contentBox: HTMLElement
-    _toolBox: HTMLElement
-
+    private node: HTMLElement
+    private contentBox: HTMLElement
+    private toolBox: HTMLElement
     tools: Array<toolsdetails> = [{
-        "name": 'bold',
+        "name": 'bold-text',
         "listener": bold,
         "element": () => createTool('bold'),
     },
@@ -20,22 +19,25 @@ class Editor {
         "listener": TextBlock,
         "element": () => createTool('text-block'),
     }]
+    
     constructor(node: HTMLElement, optionType: 'icon' | 'box' = 'icon', newTools: Array<toolsdetails> | null = null) {
-        this._node = node
-        this._createToolbar()
-        this._setOptions(optionType)
+        this.node = node
+        this.createToolbar()
+        this.setOptions(optionType)
         this.tools = newTools ? { ...this.tools, ...newTools } : this.tools
     }
-    _setOptions = (optionType: string) => {
-        this._toolBox.classList.add(optionType == 'box' ? 'top-toolbar' : 'float-toolbar')
-        this._contentBox.classList.add('editor-preview-box')
+
+
+    private setOptions = (optionType: string) => {
+        this.toolBox.classList.add(optionType == 'box' ? 'top-toolbar' : 'float-toolbar')
+        this.contentBox.classList.add('editor-preview-box')
     }
-    _createToolbar = () => {
+    private createToolbar = () => {
         //initial editor wrapper
-        this._toolBox = document.createElement('div')
-        this._contentBox = document.createElement('div')
-        this._node.appendChild(this._toolBox)
-        this._node.appendChild(this._contentBox)
+        this.toolBox = document.createElement('div')
+        this.contentBox = document.createElement('div')
+        this.node.appendChild(this.toolBox)
+        this.node.appendChild(this.contentBox)
 
         this.tools.forEach(e => {
             const { name, listener, element } = e
@@ -43,11 +45,12 @@ class Editor {
             const wrapper = document.createElement('div')
             wrapper.classList.add('tool')
             wrapper.appendChild(tool_element)
-            this._toolBox.appendChild(wrapper)
-            wrapper.addEventListener('click', () => listener())
+            this.toolBox.appendChild(wrapper)
+            let tools = this.tools.map(styles => styles.name)
+            wrapper.addEventListener('click', (e) => listener(e, tools))
         })
+      
     }
-    covertToJson = () => converter(this._node)
 }
 export const convertToHtml = (json: object) => resolver(json)
 

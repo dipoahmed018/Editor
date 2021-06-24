@@ -1,6 +1,11 @@
-import { removeFocus } from "./ListenerHelper";
+import { getFocus, removeFocus } from "./ListenerHelper";
 
-export default function bold(classname : string = null) {
-    const node = document.querySelector(classname ? `.${classname}` : '.editor-preview-box')
-    removeFocus()
+export default function bold(e : Event,tools : Array<string>) {
+    console.log(e)
+    const node = document.querySelector('.editor-preview-box')
+    const focused = getFocus()
+    if (focused?.innerHTML.trim() == '') {
+        focused.classList.add('bold-text')
+        focused.focus()
+    }
 }
