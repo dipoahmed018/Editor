@@ -1,4 +1,4 @@
-import { getBlock, getFocus } from "./ListenerHelper";
+import { getBlock, getFocus, removeFocus, fixStyles } from "./ListenerHelper";
 
 export default function addLink(e: Event, tools: Array<string>) {
     const preview_node = document.querySelector('.editor-preview-box')
@@ -9,4 +9,9 @@ export default function addLink(e: Event, tools: Array<string>) {
     linkElement.href = link
     linkElement.innerText = link
     focused?.appendChild(linkElement) ?? preview_node.appendChild(linkElement)
+    linkElement.addEventListener('click', (e: Event) => {
+        removeFocus()
+        linkElement.setAttribute('focused', 'true')
+        fixStyles(e.target as HTMLElement, tools)
+    })
 }

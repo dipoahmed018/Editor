@@ -51,3 +51,7 @@ export function getBlock(node:HTMLElement) : HTMLElement | undefined {
     }
     return undefined
 }
+
+export function fixStyles(node: HTMLElement, classList : Array<string>) {
+
+}
